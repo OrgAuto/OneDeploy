@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: genai-app
+  namespace: genai
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: genai-app
+  template:
+    metadata:
+      labels:
+        app: genai-app
+    spec:
+      nodeSelector:
+        node-role: api
+      containers:
+        - name: genai-app
+          image: node:latest
+          imagePullPolicy: Always
+          securityContext:
+            privileged: true 
+          ports:
+            - containerPort: 80
